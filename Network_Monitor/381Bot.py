@@ -17,6 +17,7 @@ import useless_skills as useless
 import useful_skills as useful
 from BGP_Neighbors_Established import BGP_Neighbors_Established
 from Monitor_Interfaces import MonitorInterfaces
+from Monitor_VPN import MonitorVPN
 
 # Create  thread list
 threads = list()
@@ -214,6 +215,60 @@ def save_run(incoming_msg):
     response.text = "The show run results have been saved to files."
     return response
 
+def check_VPN(incoming_msg):
+    response = Response()
+    response.text = "Gathering  Information...\n\n"
+
+    mon = MonitorVPN()
+    status = mon.setup('testbed/router2.yml')
+    if status != "":
+        response.text += status
+        return response
+
+    status = mon.learn_interface()
+    if status == "":
+        response.text += "All Interfaces are OK!"
+    else:
+        response.text += status
+
+    return response
+
+def monitor_VPN(incoming_msg):
+    """Monitor VPN in a thread
+    """
+    response = Response()
+    response.text = "Monitoring interfaces...\n\n"
+    monitor_VPN_job(incoming_msg)
+    th = threading.Thread(target=monitor_VPN_job, args=(incoming_msg,))
+    threads.append(th)  # appending the thread to the list
+
+    # starting the threads
+    for th in threads:
+        th.start()
+
+    # waiting for the threads to finish
+    for th in threads:
+        th.join()
+
+    return response
+
+def monitor_VPN_job(incoming_msg):
+    response = Response()
+    msgtxt_old=""
+    global exit_flag
+    while exit_flag == False:
+        msgtxt = check_VPN(incoming_msg)
+        if msgtxt_old != msgtxt:
+            print(msgtxt.text)
+            useless.create_message(incoming_msg.roomId, msgtxt.text)
+        msgtxt_old = msgtxt
+        time.sleep(20)
+
+    print("exited thread")
+    exit_flag = False
+
+    return response
+
 # Set the bot greeting.
 bot.set_greeting(greeting)
 
@@ -235,6 +290,8 @@ bot.add_command("stop monitoring", "This job will stop all monitor job", stop_mo
 bot.add_command("get interface output R1", "This job will get information about the interfaces on R1", useless.get_interface_output)
 bot.add_command("get interface output R2", "This job will get information about the interfaces on R1", useless.get_interface_output2)
 bot.add_command("save run", "This will save the output of the show version command into a text file for each router", save_run)
+bot.add_command("get routing protocols", "This job will get the routing protocols and router ID", useless.get_routing_protocol)
+bot.add_command("monitor VPN status", "This job will monitor the VPN and change internal configurations to keep it running", monitor_VPN)
 # Every bot includes a default "/echo" command.  You can remove it, or any
 bot.remove_command("/echo")
 
