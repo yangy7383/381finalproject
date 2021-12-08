@@ -1,0 +1,14 @@
+[routers]
+router1 ansible_host=192.168.56.105
+router2 ansible_host=192.168.56.107
+
+[routers:vars]
+ansible_become=yes
+ansible_become_method=enable
+ansible_user=cisco
+ansible_ssh_pass=cisco123!
+ansible_become_pass=cisco123!
+ansible_network_os=ios
+
+[all:vars]
+ansible_port=22

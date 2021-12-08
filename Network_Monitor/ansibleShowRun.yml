@@ -1,0 +1,20 @@
+---
+- name: Run a show run command and save the file
+  hosts: routers
+  gather_facts: false
+  connection: network_cli
+
+
+
+  tasks:
+    - name: Run a show run command the routers.
+      ios_command: #ansible module
+        commands: #commands to run
+        - show run
+
+      register: my_config
+
+    - name: Save the show run output into a named text file
+      copy: 
+        content: "{{ my_config.stdout[0] }}"
+        dest: "show_run_{{inventory_hostname}}.txt"

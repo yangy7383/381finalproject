@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.1 (Python 3.8.2 on linux)" generated="20211207 23:59:39.703" rpa="false">
+<suite id="s1" name="Robot Initial Snapshot" source="/home/devasc/labs/devnet-src/sample-app/Network_Monitor/robot_initial_snapshot.robot">
+<test id="s1-t1" name="Connect">
+<kw name="use genie testbed &quot;${testbed}&quot;" library="genie.libs.robot.GenieRobot">
+<doc>Create the genie testbed</doc>
+<msg timestamp="20211207 23:59:41.070" level="INFO">+------------------------------------------------------------------------------+
+|                            Genie datafiles used:                             |
++------------------------------------------------------------------------------+</msg>
+<msg timestamp="20211207 23:59:41.070" level="INFO">Trigger datafile          | </msg>
+<msg timestamp="20211207 23:59:41.071" level="INFO">Verification  datafile    | </msg>
+<msg timestamp="20211207 23:59:41.071" level="INFO">Pts datafile              | /home/devasc/.local/lib/python3.8/site-packages/genie/libs/sdk/genie_yamls/pts_datafile.yaml</msg>
+<msg timestamp="20211207 23:59:41.071" level="INFO">Subsection datafile       | /home/devasc/.local/lib/python3.8/site-packages/genie/libs/sdk/genie_yamls/subsection_datafile.yaml</msg>
+<msg timestamp="20211207 23:59:41.071" level="INFO">Config datafile           | None</msg>
+<msg timestamp="20211207 23:59:41.094" level="WARN">Could not load the Datafile correctly</msg>
+<status status="PASS" starttime="20211207 23:59:40.996" endtime="20211207 23:59:41.095"></status>
+</kw>
+<kw name="connect to device &quot;R1&quot;" library="pyats.robot.pyATSRobot">
+<doc>Connect to device connection as defined in testbed.yaml</doc>
+<msg timestamp="20211207 23:59:41.097" level="FAIL">KeyError: 'Unknown device R1'</msg>
+<status status="FAIL" starttime="20211207 23:59:41.095" endtime="20211207 23:59:41.097"></status>
+</kw>
+<status status="FAIL" starttime="20211207 23:59:40.993" endtime="20211207 23:59:41.098" critical="yes">KeyError: 'Unknown device R1'</status>
+</test>
+<test id="s1-t2" name="Profile the devices">
+<kw name="Profile the system for &quot;bgp;config;interface;ospf;arp&quot; on devices &quot;R1;R2&quot; as &quot;./good_snapshot&quot;" library="genie.libs.robot.GenieRobot">
+<doc>Profile system as per the provided features on the devices</doc>
+<msg timestamp="20211207 23:59:41.101" level="INFO">Start learning feature bgp</msg>
+<msg timestamp="20211207 23:59:41.102" level="FAIL">KeyError: 'Unknown device R1'</msg>
+<status status="FAIL" starttime="20211207 23:59:41.100" endtime="20211207 23:59:41.102"></status>
+</kw>
+<status status="FAIL" starttime="20211207 23:59:41.099" endtime="20211207 23:59:41.103" critical="yes">KeyError: 'Unknown device R1'</status>
+</test>
+<status status="FAIL" starttime="20211207 23:59:39.705" endtime="20211207 23:59:41.104"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="2">Critical Tests</stat>
+<stat pass="0" fail="2">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="2" id="s1" name="Robot Initial Snapshot">Robot Initial Snapshot</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20211207 23:59:41.094" level="WARN">Could not load the Datafile correctly</msg>
+</errors>
+</robot>

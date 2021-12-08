@@ -1,0 +1,27 @@
+devices:
+  CSR1:
+    connections:
+      cli:
+        ip: 192.168.56.105
+        protocol: ssh
+    credentials:
+      default:
+        password: '%ENC{w5PDosOUw5fDosKQwpbCmMKH}'
+        username: cisco
+      enable:
+        password: '%ENC{w5PDosOUw5fDosKQwpbCmMKH}'
+    os: iosxe
+    type: iosxe
+  CSR2:
+    connections:
+      cli:
+        ip: 192.168.56.107
+        protocol: ssh
+    credentials:
+      default:
+        password: '%ENC{w5PDosOUw5fDosKQwpbCmMKH}'
+        username: cisco
+      enable:
+        password: '%ENC{w5PDosOUw5fDosKQwpbCmMKH}'
+    os: iosxe
+    type: iosxe
